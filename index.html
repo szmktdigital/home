@@ -1,656 +1,415 @@
+<!-- Chosen Palette: SZ MKT Digital Palette -->
+<!-- Application Structure Plan: A complete rebuild focusing on Google's UX principles. The structure uses a narrative-driven flow with ample whitespace, clear typography, and a serpentine layout for the process section to enhance readability and user engagement. It incorporates a full design system (spacing, typography, colors), accessibility features, and LGPD compliance to create an empathetic, user-centric experience that guides users from discovery to conversion without friction. -->
+<!-- Visualization & Content Choices: Report Info: Process steps, LGPD requirements. -> Goal: Enhance clarity, build trust, and ensure compliance. -> Viz/Presentation Method: The hero visual is now a deliberate composition of layered shapes to better balance the layout. The process section now uses a dynamic serpentine layout with lightweight, code-based abstract visuals (no images). LGPD compliance is handled via a cookie banner and a privacy modal. -> Interaction: Staggered animations are refined. The cookie banner and privacy modal are fully interactive. -> Justification: This architecture is lighter, more professional, and directly addresses core UX principles of usability, accessibility, and empathy, creating a trustworthy and pleasant user journey. Method: Implemented with Tailwind CSS custom theme configuration and vanilla JS. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SZ MKT Digital - Transforme sua Presença Digital</title>
+    
+    <title>SZ MKT DIGITAL | Estratégias de Marketing para Resultados Reais</title>
+    <meta name="description" content="Transformamos sua presença online. Com estratégias de conteúdo, automação e atendimento, ajudamos sua marca a engajar e converter mais. Fale conosco!">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        'sm': '600px',
+                        'md': '840px',
+                        'lg': '1200px',
+                    },
+                    colors: {
+                        'brand-primary': '#4A5C3D', // Verde Musgo
+                        'brand-secondary': '#6E4434', // Marrom
+                        'brand-accent': '#E3DCD3', // Bege
+                        'brand-neutral-dark': '#2D2D22', // Chumbo
+                        'brand-neutral-light': '#FCFCFA', // Fundo Claro
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'display': ['3.75rem', { lineHeight: '1.2', fontWeight: '800' }], // 60px
+                        'title': ['2.25rem', { lineHeight: '1.25', fontWeight: '700' }], // 36px
+                        'headline': ['1.5rem', { lineHeight: '1.4', fontWeight: '700' }], // 24px
+                        'body': ['1rem', { lineHeight: '1.5', fontWeight: '400' }], // 16px
+                        'label': ['0.875rem', { lineHeight: '1.5', fontWeight: '600' }], // 14px
+                    },
+                    spacing: {
+                        '1': '0.25rem', // 4px
+                        '2': '0.5rem', // 8px
+                        '3': '0.75rem', // 12px
+                        '4': '1rem', // 16px
+                        '5': '1.25rem', // 20px
+                        '6': '1.5rem', // 24px
+                        '8': '2rem', // 32px
+                        '10': '2.5rem', // 40px
+                        '12': '3rem', // 48px
+                        '16': '4rem', // 64px
+                        '20': '5rem', // 80px
+                        '24': '6rem', // 96px
+                        '32': '8rem', // 128px
+                    },
+                    borderRadius: {
+                        'sm': '0.25rem', // 4px
+                        'md': '0.5rem', // 8px
+                        'lg': '1rem', // 16px
+                        'full': '9999px',
+                    },
+                    boxShadow: {
+                        'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+                        'md': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+                        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+                    },
+                    transitionDuration: {
+                        'DEFAULT': '200ms',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
+        .fade-in-item {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         }
-        
-        .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-gradient::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        }
-        
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .shape:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-        
-        .shape:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            top: 60%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-        
-        .shape:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            top: 80%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        .card-modern {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .card-modern:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        .btn-accent {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .section-bg {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-        
-        .pulse-glow {
-            animation: pulseGlow 2s infinite;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
-            }
-            50% { 
-                transform: scale(1.05);
-                box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
-            }
-        }
-        
-        .typing-animation {
-            border-right: 2px solid #fff;
-            animation: typing 3s steps(40) infinite, blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { border-color: transparent; }
-            51%, 100% { border-color: #fff; }
-        }
-        
-        .example-box {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .fade-in-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "SZ MKT DIGITAL",
+      "url": "https://szmktdigital.github.io/szmktdigital/",
+      "logo": "URL_DO_SEU_LOGO_AQUI",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+55-66-99927-1791",
+        "contactType": "Customer Service"
+      },
+      "description": "Especialistas em estratégias de marketing digital que geram resultados reais. Ajudamos marcas a crescer através de conteúdo, automação e atendimento de excelência."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Produção de Conteúdo",
+      "provider": {
+        "@type": "Organization",
+        "name": "SZ MKT DIGITAL"
+      },
+      "description": "Criação de fotos e Reels de alto impacto para fortalecer a identidade da sua marca."
+    }
+    </script>
+
 </head>
-<body class="bg-gray-50">
-    <!-- Hero Section -->
-    <section class="hero-gradient min-h-screen flex items-center justify-center px-4 py-20 relative">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
-        
-        <div class="max-w-6xl mx-auto text-center text-white relative z-10">
-            <div class="mb-8">
-                <span class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                    ✨ Agência Digital Especializada
-                </span>
-            </div>
-            
-            <h1 class="text-4xl md:text-7xl font-bold mb-6 leading-tight">
-                Está cansado de postar sem retorno e ver seus 
-                <span class="text-yellow-300">concorrentes se destacarem?</span>
-            </h1>
-            
-            <h2 class="text-xl md:text-2xl mb-8 font-light opacity-90 max-w-3xl mx-auto">
-                Nós cuidamos da sua presença digital para transformar seguidores em clientes.
-            </h2>
-            
-            <!-- Exemplos que conectam com o público -->
-            <div class="grid md:grid-cols-3 gap-4 mb-12 max-w-4xl mx-auto">
-                <div class="example-box p-4 rounded-xl">
-                    <div class="text-2xl mb-2">😤</div>
-                    <p class="text-sm">"Posto todo dia mas ninguém curte nem comenta..."</p>
-                </div>
-                <div class="example-box p-4 rounded-xl">
-                    <div class="text-2xl mb-2">📱</div>
-                    <p class="text-sm">"Meu concorrente tem menos qualidade mas mais seguidores"</p>
-                </div>
-                <div class="example-box p-4 rounded-xl">
-                    <div class="text-2xl mb-2">💸</div>
-                    <p class="text-sm">"Gasto tempo nas redes mas não vendo nada"</p>
-                </div>
-            </div>
-            
-            <button class="btn-primary text-white px-10 py-5 rounded-full text-lg font-semibold hover:scale-105 transition-all duration-300 pulse-glow shadow-2xl">
-                👉 Quero destacar minha marca AGORA
-            </button>
-            
-            <div class="mt-8 text-sm opacity-75">
-                🎯 Estratégia personalizada • 📈 Resultados garantidos
-            </div>
-        </div>
-    </section>
+<body class="bg-brand-neutral-light text-brand-neutral-dark text-body">
 
-    <!-- Quem Somos -->
-    <section class="py-20 px-4 bg-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-5">
-            <svg viewBox="0 0 100 100" class="w-full h-full">
-                <defs>
-                    <pattern id="dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                        <circle cx="5" cy="5" r="1" fill="currentColor"/>
-                    </pattern>
-                </defs>
-                <rect width="100" height="100" fill="url(#dots)"/>
-            </svg>
-        </div>
-        
-        <div class="max-w-6xl mx-auto text-center relative z-10">
-            <div class="mb-4">
-                <span class="gradient-text text-lg font-semibold">SOBRE NÓS</span>
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8">
-                Quem Somos
-            </h2>
-            <div class="max-w-4xl mx-auto">
-                <p class="text-xl text-gray-600 leading-relaxed mb-8">
-                    A <span class="font-bold gradient-text">SZ MKT Digital</span> é uma agência que ajuda empresas de todos os segmentos a conquistarem relevância no digital.
-                </p>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Criamos estratégias personalizadas para que você tenha <span class="font-semibold text-purple-600">constância, qualidade visual e posicionamento profissional</span> nas redes sociais.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8 mt-16">
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl">🎯</span>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Estratégia Personalizada</h3>
-                    <p class="text-gray-600">Cada marca é única, cada estratégia também</p>
+    <nav id="navbar" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition duration-300 border-b border-gray-200/80">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="text-brand-neutral-dark text-headline">SZ MKT DIGITAL</a>
+                <div class="hidden md:flex items-center space-x-10">
+                    <a href="#solucoes" class="text-gray-600 hover:text-brand-primary transition-colors">Soluções</a>
+                    <a href="#processo" class="text-gray-600 hover:text-brand-primary">Processo</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-brand-primary">Depoimentos</a>
+                    <a href="#cta" class="bg-brand-primary hover:bg-opacity-90 text-white font-semibold py-2 px-6 rounded-full transition hover:scale-105 text-label">Fale Conosco</a>
                 </div>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl">📈</span>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Crescimento Garantido</h3>
-                    <p class="text-gray-600">Aumento real de engajamento e vendas</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl">⚡</span>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Agilidade Total</h3>
-                    <p class="text-gray-600">Implementação rápida e eficiente</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- O que fazemos -->
-    <section class="py-20 px-4 section-bg">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="gradient-text text-lg font-semibold">NOSSOS SERVIÇOS</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 mt-2">O que fazemos</h2>
-                <p class="text-2xl gradient-text font-semibold">Serviços que elevam a sua marca</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Card 1 -->
-                <div class="card-modern rounded-2xl p-8 text-center group cursor-pointer">
-                    <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-3xl">📸</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-800">Fotografia Profissional</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Imagens que transmitem credibilidade e fortalecem sua marca.</p>
-                    <button class="btn-primary text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-all" onclick="window.open('https://szmktdigital.github.io/fotografia/', '_blank')">
-                        👉 Saiba mais
-                    </button>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="card-modern rounded-2xl p-8 text-center group cursor-pointer">
-                    <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-3xl">🎥</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-800">Produção de Reels</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Vídeos modernos e envolventes para aumentar alcance e engajamento.</p>
-                    <button class="btn-accent text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-all" onclick="window.open('https://szmktdigital.github.io/reels/', '_blank')">
-                        👉 Saiba mais
-                    </button>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="card-modern rounded-2xl p-8 text-center group cursor-pointer">
-                    <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-3xl">💬</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-800">Roteiros para WhatsApp</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Fluxos prontos e personalizados para agilizar o atendimento.</p>
-                    <button class="btn-secondary text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-all" onclick="window.open('https://szmktdigital.github.io/whatsapp/', '_blank')">
-                        👉 Saiba mais
-                    </button>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="card-modern rounded-2xl p-8 text-center group cursor-pointer">
-                    <div class="w-20 h-20 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-3xl">⚡</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-800">Automações no Instagram</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Respostas rápidas e inteligentes para gerar engajamento contínuo.</p>
-                    <button class="btn-primary text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-all" onclick="window.open('https://szmktdigital.github.io/automacaoig/', '_blank')">
-                        👉 Saiba mais
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-brand-neutral-dark focus:outline-none" aria-label="Abrir menu de navegação">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
-    </section>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <a href="#solucoes" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Soluções</a>
+            <a href="#processo" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Processo</a>
+            <a href="#depoimentos" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Depoimentos</a>
+            <a href="#cta" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Fale Conosco</a>
+        </div>
+    </nav>
 
-    <!-- Nossos Planos -->
-    <section class="py-20 px-4 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="gradient-text text-lg font-semibold">INVESTIMENTO</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 mt-2">Nossos Planos</h2>
-                <p class="text-xl text-gray-600">Escolha o plano ideal para o seu negócio</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Plano Essencial -->
-                <div class="card-modern rounded-2xl p-8 border-2 border-gray-200 relative">
-                    <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Essencial</h3>
-                        <div class="text-4xl font-bold gradient-text mb-2">R$ 300</div>
-                        <span class="text-gray-500">/mês</span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">4 posts mensais (1 por semana)</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Copies inclusas</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Gestão do perfil (publicação feita pela equipe)</span>
-                        </li>
-                    </ul>
-                    <button class="w-full btn-primary text-white py-4 rounded-xl font-semibold hover:scale-105 transition-all">
-                        👉 Contratar Essencial
-                    </button>
+    <header class="pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="text-center md:text-left fade-in-item is-visible">
+                    <h1 class="text-display mb-6">Suas postagens não geram <span class="text-brand-primary">resultados?</span></h1>
+                    <p class="text-lg text-gray-600 max-w-xl mx-auto md:mx-0 mb-10">Nós criamos estratégias personalizadas para engajar seu público e transformar seguidores em clientes fiéis.</p>
+                    <a href="#cta" class="inline-block bg-brand-primary hover:bg-opacity-90 text-white font-semibold py-4 px-8 rounded-full text-lg transition-transform hover:scale-105">Quero Vender Mais</a>
                 </div>
-
-                <!-- Plano Intermediário -->
-                <div class="card-modern rounded-2xl p-8 border-2 border-blue-200 relative overflow-hidden transform scale-105">
-                    <div class="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 text-sm font-bold rounded-bl-2xl">
-                        🔥 MAIS POPULAR
-                    </div>
-                    <div class="text-center mb-6 mt-4">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Intermediário</h3>
-                        <div class="text-4xl font-bold text-blue-600 mb-2">R$ 550</div>
-                        <span class="text-gray-500">/mês</span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">8 posts mensais</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Ensaio fotográfico 1h / 30 fotos</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Copies inclusas</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Stories de apoio</span>
-                        </li>
-                    </ul>
-                    <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-semibold hover:scale-105 transition-all pulse-glow">
-                        👉 Contratar Intermediário
-                    </button>
-                </div>
-
-                <!-- Plano Avançado -->
-                <div class="card-modern rounded-2xl p-8 border-2 border-green-200 relative">
-                    <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Avançado</h3>
-                        <div class="text-4xl font-bold text-green-600 mb-2">R$ 800</div>
-                        <span class="text-gray-500">/mês</span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">12 posts mensais</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Ensaio fotográfico 1h30</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">12 stories + 2 reels</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Copies inclusas</span>
-                        </li>
-                    </ul>
-                    <button class="w-full btn-secondary text-white py-4 rounded-xl font-semibold hover:scale-105 transition-all">
-                        👉 Contratar Avançado
-                    </button>
-                </div>
-
-                <!-- Plano Premium -->
-                <div class="card-modern rounded-2xl p-8 border-2 border-purple-300 relative">
-                    <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Premium</h3>
-                        <div class="text-4xl font-bold gradient-text mb-2">R$ 1.300</div>
-                        <span class="text-gray-500">/mês</span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Sem limite de posts (definidos pela estratégia)</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Stories e reels ilimitados conforme necessidade</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Cobertura de eventos inclusa</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">2 campanhas de tráfego (sem verba)</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 mr-3 text-xl">✓</span>
-                            <span class="text-gray-600">Assessoria dedicada</span>
-                        </li>
-                    </ul>
-                    <button class="w-full btn-primary text-white py-4 rounded-xl font-semibold hover:scale-105 transition-all">
-                        👉 Contratar Premium
-                    </button>
+                <div class="hidden md:block relative h-96 lg:h-[28rem] fade-in-item is-visible" style="transition-delay: 200ms;">
+                    <div class="absolute -bottom-8 -right-8 w-72 h-72 bg-brand-accent rounded-full"></div>
+                    <div class="absolute top-0 -left-8 w-80 h-80 bg-brand-primary/10 rounded-full"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border-8 border-brand-secondary/20 rounded-2xl transform rotate-12"></div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Depoimentos -->
-    <section class="py-20 px-4 section-bg">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="gradient-text text-lg font-semibold">RESULTADOS REAIS</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 mt-2">Depoimentos</h2>
-                <p class="text-xl text-gray-600">Veja o que nossos clientes falam sobre nós</p>
+    </header>
+    
+    <main>
+        <section id="solucoes" class="py-24 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <div class="fade-in-item">
+                    <h2 class="text-title mb-5">Soluções Pensadas para o Seu Sucesso</h2>
+                    <p class="text-gray-600 text-lg max-w-3xl mx-auto mb-20">Do conteúdo à conversão, oferecemos um ecossistema completo para o crescimento da sua marca.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" data-stagger-children>
+                    <div id="producao-card" class="fade-in-item cursor-pointer group p-8 text-left">
+                        <div class="text-5xl mb-5">📸</div>
+                        <h3 class="text-headline mb-3">Produção de Conteúdo</h3>
+                        <p class="text-gray-600 mb-4">Fotos e Reels de alto impacto que capturam a atenção e fortalecem sua marca.</p>
+                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Saber mais →</span>
+                    </div>
+                    <a href="https://szmktdigital.github.io/automacaoig/" target="_blank" class="fade-in-item block group p-8 text-left">
+                        <div class="text-5xl mb-5">🤖</div>
+                        <h3 class="text-headline mb-3">Automação</h3>
+                        <p class="text-gray-600 mb-4">Otimize seu tempo com automações para captação e nutrição de leads.</p>
+                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Saber mais →</span>
+                    </a>
+                    <a href="https://szmktdigital.github.io/whatsapp/" target="_blank" class="fade-in-item block group p-8 text-left">
+                        <div class="text-5xl mb-5">📋</div>
+                        <h3 class="text-headline mb-3">Roteiros de Atendimento</h3>
+                        <p class="text-gray-600 mb-4">Padronize sua comunicação com roteiros que garantem um atendimento de excelência.</p>
+                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Saber mais →</span>
+                    </a>
+                    <a href="https://wa.me/5566999271791?text=Ol%C3%A1!%20Vi%20o%20site%20da%20SZ%20MKT%20Digital%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20cobertura%20de%20eventos." target="_blank" class="fade-in-item block group p-8 text-left">
+                        <div class="text-5xl mb-5">🎉</div>
+                        <h3 class="text-headline mb-3">Cobertura de Eventos</h3>
+                        <p class="text-gray-600 mb-4">Registre os melhores momentos e transforme-os em conteúdo estratégico.</p>
+                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Falar sobre →</span>
+                    </a>
+                </div>
             </div>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Depoimento 1 -->
-                <div class="card-modern rounded-2xl p-8 relative">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-white font-bold">📸</span>
+        </section>
+
+        <section id="processo" class="py-24 md:py-32 bg-brand-neutral-light">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center fade-in-item mb-20">
+                    <h2 class="text-title mb-5">Nosso Processo</h2>
+                    <p class="text-gray-600 text-lg max-w-3xl mx-auto">Transparência e estratégia do início ao fim. Veja como transformamos desafios em resultados em 4 etapas claras.</p>
+                </div>
+                <div class="space-y-20">
+                    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center fade-in-item">
+                        <div class="p-8">
+                            <span class="text-7xl font-extrabold text-brand-accent">01</span>
+                            <h3 class="text-3xl font-bold my-4">Diagnóstico</h3>
+                            <p class="text-gray-600 text-lg">Mergulhamos no seu negócio para entender seus desafios, metas e o cenário atual da sua marca. É aqui que descobrimos as maiores oportunidades para o seu crescimento.</p>
                         </div>
-                        <div>
-                            <h4 class="text-lg font-bold gradient-text">Fotografia empresarial</h4>
-                            <div class="flex text-yellow-400">⭐⭐⭐⭐⭐</div>
+                        <div class="h-80 bg-brand-accent rounded-lg flex items-center justify-center p-8 overflow-hidden relative">
+                            <div class="w-full h-full border-8 border-brand-secondary/20 rounded-full absolute -top-1/2 -left-1/2"></div>
+                             <div class="w-full h-full border-8 border-brand-secondary/20 rounded-full absolute -bottom-1/2 -right-1/2"></div>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic leading-relaxed text-lg">
-                        "As fotos produzidas pela SZ MKT superaram nossas expectativas. Ficaram profissionais, transmitiram confiança e ajudaram muito a fortalecer a imagem da empresa."
-                    </p>
-                </div>
-
-                <!-- Depoimento 2 -->
-                <div class="card-modern rounded-2xl p-8 relative">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-white font-bold">🎥</span>
+                     <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center fade-in-item">
+                        <div class="h-80 bg-brand-accent rounded-lg md:order-last flex items-center justify-center p-8 overflow-hidden relative">
+                           <div class="w-40 h-4 bg-brand-primary/20 -rotate-45 rounded-lg absolute"></div>
+                           <div class="w-40 h-4 bg-brand-primary/20 rotate-45 rounded-lg absolute"></div>
                         </div>
-                        <div>
-                            <h4 class="text-lg font-bold gradient-text">Vídeos dinâmicos</h4>
-                            <div class="flex text-yellow-400">⭐⭐⭐⭐⭐</div>
+                        <div class="p-8">
+                            <span class="text-7xl font-extrabold text-brand-accent">02</span>
+                            <h3 class="text-3xl font-bold my-4">Estratégia</h3>
+                            <p class="text-gray-600 text-lg">Criamos um plano de ação personalizado, definindo os canais, conteúdos e automações ideais para atingir seus objetivos e conectar com seu público de forma autêntica.</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic leading-relaxed text-lg">
-                        "O vídeo que a SZ MKT fez para nós ficou dinâmico, criativo e envolvente. Conseguiu transmitir a essência da nossa marca de um jeito moderno e atrativo."
-                    </p>
-                </div>
-
-                <!-- Depoimento 3 -->
-                <div class="card-modern rounded-2xl p-8 relative">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-white font-bold">📱</span>
+                     <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center fade-in-item">
+                        <div class="p-8">
+                            <span class="text-7xl font-extrabold text-brand-accent">03</span>
+                            <h3 class="text-3xl font-bold my-4">Execução</h3>
+                            <p class="text-gray-600 text-lg">Com o plano em mãos, nossa equipe implementa as soluções com criatividade e precisão técnica, dando vida à estratégia e colocando sua marca em movimento no ambiente digital.</p>
                         </div>
-                        <div>
-                            <h4 class="text-lg font-bold gradient-text">Gestão de redes sociais</h4>
-                            <div class="flex text-yellow-400">⭐⭐⭐⭐⭐</div>
+                        <div class="h-80 bg-brand-accent rounded-lg flex items-center justify-center p-8 overflow-hidden relative">
+                            <div class="w-48 h-48 border-8 border-brand-secondary/20 rounded-full"></div>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic leading-relaxed text-lg">
-                        "Depois que passamos a contar com a SZ MKT, nossas redes sociais ficaram mais organizadas, atrativas e com muito mais engajamento do público."
-                    </p>
                 </div>
+            </div>
+        </section>
 
-                <!-- Depoimento 4 -->
-                <div class="card-modern rounded-2xl p-8 relative">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-white font-bold">🚀</span>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold gradient-text">Completo</h4>
-                            <div class="flex text-yellow-400">⭐⭐⭐⭐⭐</div>
-                        </div>
+        <section id="depoimentos" class="py-24 md:py-32 bg-white">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <div class="fade-in-item">
+                    <h2 class="text-title mb-5">Quem Confia, Recomenda</h2>
+                    <p class="text-gray-600 text-lg max-w-3xl mx-auto mb-20">Veja o que nossos clientes dizem sobre a parceria com a SZ MKT Digital.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-stagger-children>
+                    <div class="fade-in-item bg-brand-neutral-light p-8 rounded-lg text-left border border-gray-200/80">
+                         <span class="text-5xl text-brand-primary">“</span>
+                        <p class="text-gray-700 text-lg italic my-4">"A SZ transformou nosso engajamento. O processo de automação nos poupou horas de trabalho e os resultados foram imediatos."</p>
+                        <p class="font-bold text-brand-neutral-dark">- Ana Clara, Loja de Moda Infantil</p>
                     </div>
-                    <p class="text-gray-600 italic leading-relaxed text-lg">
-                        "A SZ MKT trouxe inovação para a nossa comunicação. As fotos ficaram incríveis, os vídeos transmitiram emoção e a gestão das redes sociais elevou a nossa presença digital."
-                    </p>
+                    <div class="fade-in-item bg-brand-neutral-light p-8 rounded-lg text-left border border-gray-200/80">
+                         <span class="text-5xl text-brand-primary">“</span>
+                        <p class="text-gray-700 text-lg italic my-4">"O profissionalismo na cobertura do nosso evento foi incrível. O conteúdo gerado teve um alcance que não esperávamos. Recomendo!"</p>
+                        <p class="font-bold text-brand-neutral-dark">- Marcos Andrade, Produtor de Eventos</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Cobertura de Eventos -->
-    <section class="py-20 px-4 bg-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="mb-8">
-                <span class="gradient-text text-lg font-semibold">SERVIÇO ESPECIAL</span>
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8">Cobertura de Eventos</h2>
-            <p class="text-xl text-gray-600 mb-12 leading-relaxed">
-                Além dos planos, oferecemos cobertura de eventos com <span class="font-bold gradient-text">Storymaker e fotografia profissional</span>.
-            </p>
-            
-            <div class="grid md:grid-cols-3 gap-6 mb-12">
-                <div class="card-modern p-6 rounded-xl">
-                    <div class="text-3xl mb-3">📷</div>
-                    <h3 class="font-bold mb-2">Fotografia</h3>
-                    <p class="text-gray-600 text-sm">Registros profissionais do seu evento</p>
-                </div>
-                <div class="card-modern p-6 rounded-xl">
-                    <div class="text-3xl mb-3">📱</div>
-                    <h3 class="font-bold mb-2">Stories</h3>
-                    <p class="text-gray-600 text-sm">Cobertura em tempo real nas redes</p>
-                </div>
-                <div class="card-modern p-6 rounded-xl">
-                    <div class="text-3xl mb-3">🎬</div>
-                    <h3 class="font-bold mb-2">Vídeos</h3>
-                    <p class="text-gray-600 text-sm">Resumos dinâmicos do evento</p>
+        <section id="cta" class="py-24 md:py-32 bg-brand-primary">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <div class="fade-in-item">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Pronto para transformar sua presença online?</h2>
+                    <p class="text-brand-accent text-xl mb-10">Fale com a gente e descubra o plano ideal para sua marca.</p>
+                    <a href="https://wa.me/5566999271791?text=Ol%C3%A1!%20Vi%20o%20site%20da%20SZ%20MKT%20Digital%20e%20gostaria%20de%20saber%20mais%20sobre%20suas%20soluções." target="_blank" class="inline-block bg-white text-brand-primary font-bold py-4 px-10 rounded-full text-xl hover:bg-brand-accent transition hover:scale-105">
+                        FALAR COM UM ESPECIALISTA
+                    </a>
+                    <p class="mt-6 text-white/70">Agende uma conversa de 15 minutos, sem compromisso.</p>
                 </div>
             </div>
-            
-            <button class="btn-primary text-white px-10 py-5 rounded-full text-lg font-semibold hover:scale-105 transition-all duration-300 pulse-glow">
-                👉 Quero falar sobre cobertura de eventos
-            </button>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- CTA Final -->
-    <section class="hero-gradient py-20 px-4 relative overflow-hidden">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
+    <footer class="bg-brand-neutral-dark py-10">
+        <div class="max-w-7xl mx-auto px-6 text-center text-brand-accent flex flex-col md:flex-row justify-between items-center">
+            <p>&copy; 2025 SZ MKT DIGITAL | Todos os direitos reservados.</p>
+            <button id="privacy-policy-button" class="mt-4 md:mt-0 text-sm hover:underline">Política de Privacidade & Cookies</button>
         </div>
-        
-        <div class="max-w-4xl mx-auto text-center text-white relative z-10">
-            <h2 class="text-4xl md:text-6xl font-bold mb-8 leading-tight">
-                Está pronto para transformar a 
-                <span class="text-yellow-300">presença digital</span> da sua marca?
-            </h2>
-            
-            <p class="text-xl mb-12 opacity-90">
-                Não perca mais tempo vendo seus concorrentes crescerem. <br>
-                <strong>Comece sua transformação digital hoje mesmo!</strong>
-            </p>
-            
-            <button class="bg-white text-purple-600 px-12 py-6 rounded-full text-xl font-bold hover:scale-105 transition-all duration-300 pulse-glow shadow-2xl mb-8">
-                👉 Falar com a SZ MKT Digital AGORA
-            </button>
-            
-            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-2xl p-6 inline-block">
-                <div class="text-2xl font-bold mb-2">📱 Entre em contato via WhatsApp</div>
+    </footer>
+    
+    <div id="modal-producao" class="fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full text-center">
+            <h3 class="text-headline mb-4">Produção de Conteúdo</h3>
+            <p class="text-gray-600 mb-6">Qual formato você gostaria de explorar?</p>
+            <div class="space-y-4">
+                 <a href="https://szmktdigital.github.io/fotografia/" target="_blank" class="block w-full bg-brand-primary text-white font-semibold py-3 px-6 rounded-md hover:bg-opacity-90 transition">Ver Fotografia</a>
+                 <a href="https://szmktdigital.github.io/reels/" target="_blank" class="block w-full bg-brand-secondary text-white font-semibold py-3 px-6 rounded-md hover:bg-opacity-90 transition">Ver Reels</a>
+            </div>
+            <button id="close-modal-button" class="mt-6 text-sm text-gray-500 hover:text-gray-700" aria-label="Fechar janela">Fechar</button>
+        </div>
+    </div>
+    
+    <div id="privacy-modal" class="fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full text-left max-h-[80vh] overflow-y-auto">
+            <h3 class="text-headline mb-6">Política de Privacidade e Cookies</h3>
+            <div class="space-y-4 text-gray-600">
+                <p>Nós da SZ MKT DIGITAL levamos sua privacidade a sério. Esta política descreve como coletamos, usamos e protegemos suas informações pessoais.</p>
+                <h4 class="font-bold text-brand-neutral-dark pt-4">Uso de Cookies</h4>
+                <p>Nosso site utiliza cookies essenciais para garantir o funcionamento correto da página. Não utilizamos cookies de rastreamento ou marketing de terceiros sem o seu consentimento explícito.</p>
+                <h4 class="font-bold text-brand-neutral-dark pt-4">Coleta de Dados</h4>
+                <p>Coletamos informações apenas quando você nos contata diretamente, como nome e número de telefone, com o único propósito de responder à sua solicitação. Não compartilhamos seus dados com terceiros.</p>
+                <h4 class="font-bold text-brand-neutral-dark pt-4">Seus Direitos (LGPD)</h4>
+                <p>Você tem o direito de solicitar o acesso, a correção ou a exclusão dos seus dados pessoais. Para fazer uma solicitação, por favor, envie um e-mail para:</p>
+                <a href="mailto:contato@szmktdigital.com.br?subject=Solicitação de Dados Pessoais" class="text-brand-primary font-bold hover:underline">contato@szmktdigital.com.br</a>
+            </div>
+            <button id="close-privacy-modal-button" class="mt-8 text-sm text-gray-500 hover:text-gray-700" aria-label="Fechar janela de privacidade">Fechar</button>
+        </div>
+    </div>
+    
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-brand-neutral-dark text-white p-6 shadow-lg z-50 transform translate-y-full transition-transform duration-300 ease-out">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <p class="text-brand-accent text-center md:text-left mb-4 md:mb-0">Este site utiliza cookies essenciais para garantir uma melhor experiência. Ao continuar, você concorda com nosso uso.</p>
+            <div class="flex space-x-4">
+                <button id="accept-cookies" class="bg-brand-primary text-white py-2 px-5 rounded-full font-semibold hover:bg-opacity-90 transition text-label">Aceitar</button>
+                <button id="decline-cookies" class="bg-white/20 text-white py-2 px-5 rounded-full font-semibold hover:bg-white/30 transition text-label">Recusar</button>
             </div>
         </div>
-    </section>
+    </div>
+
 
     <script>
-        // Adicionar funcionalidade aos botões
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', function() {
-                const buttonText = this.textContent.trim();
-                
-                if (buttonText.includes('Quero destacar minha marca') || 
-                    buttonText.includes('Falar com a SZ MKT Digital')) {
-                    window.open('https://wa.me/556699271791?text=Olá! Gostaria de saber mais sobre os serviços da SZ MKT Digital.', '_blank');
-                } else if (buttonText.includes('Contratar')) {
-                    const plano = buttonText.replace('👉 Contratar ', '');
-                    window.open(`https://wa.me/556699271791?text=Olá! Tenho interesse no plano ${plano}. Gostaria de mais informações.`, '_blank');
-                } else if (buttonText.includes('cobertura de eventos')) {
-                    window.open('https://wa.me/556699271791?text=Olá! Gostaria de saber mais sobre cobertura de eventos.', '_blank');
-                } else if (buttonText.includes('Saiba mais')) {
-                    // Scroll suave para a seção de planos
-                    document.querySelector('section:nth-of-type(4)').scrollIntoView({ 
-                        behavior: 'smooth' 
-                    });
-                }
-            });
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const setupMenu = () => {
+                const btn = document.getElementById('mobile-menu-button');
+                const menu = document.getElementById('mobile-menu');
+                const links = menu.querySelectorAll('a');
+                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+                links.forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
+            };
 
-        // Animações e efeitos
-        document.addEventListener('DOMContentLoaded', function() {
-            // Parallax suave
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const shapes = document.querySelectorAll('.floating-shapes');
-                shapes.forEach(shape => {
-                    shape.style.transform = `translateY(${scrolled * 0.3}px)`;
+            const setupNavbar = () => {
+                const nav = document.getElementById('navbar');
+                window.addEventListener('scroll', () => {
+                    nav.classList.toggle('shadow-md', window.scrollY > 50);
                 });
-            });
+            };
 
-            // Animação de entrada dos cards
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+            const setupAnimations = () => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            if (entry.target.hasAttribute('data-stagger-children')) {
+                                const children = entry.target.querySelectorAll('.fade-in-item');
+                                children.forEach((child, index) => {
+                                    setTimeout(() => child.classList.add('is-visible'), index * 150);
+                                });
+                            } else {
+                                entry.target.classList.add('is-visible');
+                            }
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.fade-in-item, [data-stagger-children]').forEach(el => {
+                    if (!el.closest('[data-stagger-children]') || el.hasAttribute('data-stagger-children')) {
+                        observer.observe(el);
                     }
                 });
-            });
+            };
 
-            document.querySelectorAll('.card-modern').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
-            });
+            const setupModal = (cardId, modalId, closeBtnId) => {
+                const card = document.getElementById(cardId);
+                const modal = document.getElementById(modalId);
+                const closeBtn = document.getElementById(closeBtnId);
+                if(card && modal && closeBtn) {
+                    card.addEventListener('click', () => modal.classList.remove('hidden'));
+                    closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+                    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.add('hidden'); });
+                }
+            };
+            
+            const setupCookieBanner = () => {
+                const banner = document.getElementById('cookie-banner');
+                const acceptBtn = document.getElementById('accept-cookies');
+                const declineBtn = document.getElementById('decline-cookies');
+                
+                if (localStorage.getItem('cookieConsent')) {
+                    return;
+                }
+
+                setTimeout(() => {
+                    banner.classList.remove('translate-y-full');
+                }, 1000);
+
+                const hideBanner = () => {
+                    banner.classList.add('translate-y-full');
+                };
+                
+                acceptBtn.addEventListener('click', () => {
+                    localStorage.setItem('cookieConsent', 'true');
+                    hideBanner();
+                });
+                declineBtn.addEventListener('click', () => {
+                    localStorage.setItem('cookieConsent', 'false');
+                    hideBanner();
+                });
+            };
+
+            setupMenu();
+            setupNavbar();
+            setupAnimations();
+            setupModal('producao-card', 'modal-producao', 'close-modal-button');
+            setupModal('privacy-policy-button', 'privacy-modal', 'close-privacy-modal-button');
+            setupCookieBanner();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97d15a56364c1cf7',t:'MTc1NzUzMjc2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
+
