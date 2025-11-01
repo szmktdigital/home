@@ -1,413 +1,229 @@
-<!-- Chosen Palette: SZ MKT Digital Palette -->
-<!-- Application Structure Plan: A complete rebuild focusing on Google's UX principles. The structure uses a narrative-driven flow with ample whitespace, clear typography, and a serpentine layout for the process section to enhance readability and user engagement. It incorporates a full design system (spacing, typography, colors), accessibility features, and LGPD compliance to create an empathetic, user-centric experience that guides users from discovery to conversion without friction. -->
-<!-- Visualization & Content Choices: Report Info: Process steps, LGPD requirements. -> Goal: Enhance clarity, build trust, and ensure compliance. -> Viz/Presentation Method: The hero visual is now a deliberate composition of layered shapes to better balance the layout. The process section now uses a dynamic serpentine layout with lightweight, code-based abstract visuals (no images). LGPD compliance is handled via a cookie banner and a privacy modal. -> Interaction: Staggered animations are refined. The cookie banner and privacy modal are fully interactive. -> Justification: This architecture is lighter, more professional, and directly addresses core UX principles of usability, accessibility, and empathy, creating a trustworthy and pleasant user journey. Method: Implemented with Tailwind CSS custom theme configuration and vanilla JS. -->
-<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SZ MKT Digital - Mais do que marketing, criamos conexão.</title>
     
-    <title>SZ MKT DIGITAL | Estratégias de Marketing para Resultados Reais</title>
-    <meta name="description" content="Transformamos sua presença online. Com estratégias de conteúdo, automação e atendimento, ajudamos sua marca a engajar e converter mais. Fale conosco!">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <!-- Configuração de Cores e Fontes do Tailwind -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    screens: {
-                        'sm': '600px',
-                        'md': '840px',
-                        'lg': '1200px',
-                    },
                     colors: {
-                        'brand-primary': '#4A5C3D', // Verde Musgo
-                        'brand-secondary': '#6E4434', // Marrom
-                        'brand-accent': '#E3DCD3', // Bege
-                        'brand-neutral-dark': '#2D2D22', // Chumbo
-                        'brand-neutral-light': '#FCFCFA', // Fundo Claro
+                        'sz-beige': '#EDEBE8',
+                        'sz-green': '#4A5C3D',
+                        'sz-black': '#2B2B2B',
+                        'sz-white': '#FFFFFF',
                     },
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
-                    fontSize: {
-                        'display': ['3.75rem', { lineHeight: '1.2', fontWeight: '800' }], // 60px
-                        'title': ['2.25rem', { lineHeight: '1.25', fontWeight: '700' }], // 36px
-                        'headline': ['1.5rem', { lineHeight: '1.4', fontWeight: '700' }], // 24px
-                        'body': ['1rem', { lineHeight: '1.5', fontWeight: '400' }], // 16px
-                        'label': ['0.875rem', { lineHeight: '1.5', fontWeight: '600' }], // 14px
-                    },
-                    spacing: {
-                        '1': '0.25rem', // 4px
-                        '2': '0.5rem', // 8px
-                        '3': '0.75rem', // 12px
-                        '4': '1rem', // 16px
-                        '5': '1.25rem', // 20px
-                        '6': '1.5rem', // 24px
-                        '8': '2rem', // 32px
-                        '10': '2.5rem', // 40px
-                        '12': '3rem', // 48px
-                        '16': '4rem', // 64px
-                        '20': '5rem', // 80px
-                        '24': '6rem', // 96px
-                        '32': '8rem', // 128px
-                    },
-                    borderRadius: {
-                        'sm': '0.25rem', // 4px
-                        'md': '0.5rem', // 8px
-                        'lg': '1rem', // 16px
-                        'full': '9999px',
-                    },
-                    boxShadow: {
-                        'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-                        'md': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-                        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-                    },
-                    transitionDuration: {
-                        'DEFAULT': '200ms',
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'roboto': ['Roboto', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
+    
+    <!-- Estilos CSS customizados para animações e toques finos -->
     <style>
-        .fade-in-item {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        body {
+            background-color: #EDEBE8;
+            color: #2B2B2B;
+            font-family: 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .fade-in-item.is-visible {
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Classe base para animação de fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        /* Classe adicionada por JS quando o elemento está visível */
+        .is-visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* CSS da timeline removido por não ser mais usado */
+        
+
+        /* Efeito de hover para cards */
+        .card-hover-effect {
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(43, 43, 43, 0.07);
+        }
     </style>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "SZ MKT DIGITAL",
-      "url": "https://szmktdigital.github.io/szmktdigital/",
-      "logo": "URL_DO_SEU_LOGO_AQUI",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+55-66-99927-1791",
-        "contactType": "Customer Service"
-      },
-      "description": "Especialistas em estratégias de marketing digital que geram resultados reais. Ajudamos marcas a crescer através de conteúdo, automação e atendimento de excelência."
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "Produção de Conteúdo",
-      "provider": {
-        "@type": "Organization",
-        "name": "SZ MKT DIGITAL"
-      },
-      "description": "Criação de fotos e Reels de alto impacto para fortalecer a identidade da sua marca."
-    }
-    </script>
-
 </head>
-<body class="bg-brand-neutral-light text-brand-neutral-dark text-body">
+<body class="bg-sz-beige text-sz-black">
 
-    <nav id="navbar" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition duration-300 border-b border-gray-200/80">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-center h-20">
-                <a href="#" class="text-brand-neutral-dark text-headline">SZ MKT DIGITAL</a>
-                <div class="hidden md:flex items-center space-x-10">
-                    <a href="#solucoes" class="text-gray-600 hover:text-brand-primary transition-colors">Soluções</a>
-                    <a href="#processo" class="text-gray-600 hover:text-brand-primary">Processo</a>
-                    <a href="#depoimentos" class="text-gray-600 hover:text-brand-primary">Depoimentos</a>
-                    <a href="#cta" class="bg-brand-primary hover:bg-opacity-90 text-white font-semibold py-2 px-6 rounded-full transition hover:scale-105 text-label">Fale Conosco</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-brand-neutral-dark focus:outline-none" aria-label="Abrir menu de navegação">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-            <a href="#solucoes" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Soluções</a>
-            <a href="#processo" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Processo</a>
-            <a href="#depoimentos" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Depoimentos</a>
-            <a href="#cta" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Fale Conosco</a>
+    <!-- Navegação Simples -->
+    <nav class="absolute top-0 left-0 right-0 z-10 p-4 sm:p-8">
+        <div class="container mx-auto max-w-7xl flex justify-between items-center">
+            <div class="text-xl font-bold font-montserrat tracking-wider text-sz-black">SZ MKT DIGITAL</div>
+            <a href="#contato" class="hidden sm:inline-block bg-sz-green text-sz-white text-sm font-semibold py-2 px-5 rounded-full hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                Vamos conversar
+            </a>
         </div>
     </nav>
 
-    <header class="pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="text-center md:text-left fade-in-item is-visible">
-                    <h1 class="text-display mb-6">Suas postagens não geram <span class="text-brand-primary">resultados?</span></h1>
-                    <p class="text-lg text-gray-600 max-w-xl mx-auto md:mx-0 mb-10">Nós criamos estratégias personalizadas para engajar seu público e transformar seguidores em clientes fiéis.</p>
-                    <a href="#cta" class="inline-block bg-brand-primary hover:bg-opacity-90 text-white font-semibold py-4 px-8 rounded-full text-lg transition-transform hover:scale-105">Quero Vender Mais</a>
-                </div>
-                <div class="hidden md:block relative h-96 lg:h-[28rem] fade-in-item is-visible" style="transition-delay: 200ms;">
-                    <div class="absolute -bottom-8 -right-8 w-72 h-72 bg-brand-accent rounded-full"></div>
-                    <div class="absolute top-0 -left-8 w-80 h-80 bg-brand-primary/10 rounded-full"></div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border-8 border-brand-secondary/20 rounded-2xl transform rotate-12"></div>
-                </div>
+    <!-- 01. Seção Principal (Hero) -->
+    <section class="min-h-screen flex items-center py-20 md:py-0">
+        <div class="container mx-auto max-w-7xl px-4">
+            
+            <!-- Texto do Hero (Centralizado e sem imagem) -->
+            <div class="text-center pt-16 md:pt-0 max-w-3xl mx-auto">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-sz-green leading-tight">
+                    Mais do que marketing, criamos conexão.
+                </h1>
+                <h2 class="text-xl sm:text-2xl font-light text-sz-black mt-6 leading-relaxed">
+                    Transformamos o digital em uma extensão verdadeira da sua marca.
+                </h2>
+                <a href="https://wa.me/556692654359?text=Olá!%20Visitei%20o%20site%20da%20SZ%20MKT%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20assessoria." target="_blank" rel="noopener noreferrer" class="inline-block bg-sz-green text-sz-white text-lg font-semibold py-4 px-10 rounded-full mt-10 hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    Quero entender como
+                </a>
             </div>
+            
+            <!-- Imagem removida -->
+
         </div>
-    </header>
+    </section>
+
+    <!-- 02. Sobre a SZ -->
+    <section class="py-24 bg-sz-white">
+        <div class="container mx-auto max-w-3xl px-4 text-center">
+            <p class="fade-in text-2xl sm:text-3xl font-light leading-relaxed text-sz-black">
+                Somos uma assessoria criativa que une <strong class="font-semibold text-sz-green">estratégia, estética e propósito.</strong>
+            </p>
+            <p class="fade-in text-2xl sm:text-3xl font-light leading-relaxed text-sz-black mt-6">
+                Acreditamos que o marketing é sobre pessoas, histórias e conexões reais.
+            </p>
+        </div>
+    </section>
+
+    <!-- 03. Proposta de Valor -->
+    <section class="py-24 bg-sz-beige">
+        <div class="container mx-auto max-w-6xl px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+            
+            <!-- Item 1: Tempo -->
+            <div class="fade-in p-6 text-center md:text-left card-hover-effect rounded-lg">
+                <div class="text-4xl mb-4 text-sz-green"><i data-feather="heart" class="w-12 h-12 inline-block"></i></div>
+                <h3 class="text-2xl font-bold text-sz-green">Mais tempo para focar no que ama</h3>
+                <p class="text-base font-light leading-relaxed mt-3">
+                    Cuidamos de todo o processo criativo e estratégico para que o digital não seja um peso na sua rotina.
+                </p>
+            </div>
+            
+            <!-- Item 2: Estratégia -->
+            <div class="fade-in p-6 text-center md:text-left card-hover-effect rounded-lg">
+                <div class="text-4xl mb-4 text-sz-green"><i data-feather="compass" class="w-12 h-12 inline-block"></i></div>
+                <h3 class="text-2xl font-bold text-sz-green">Estratégia que dá direção</h3>
+                <p class="text-base font-light leading-relaxed mt-3">
+                    Você entende o que comunicar, como e por quê, com clareza em cada etapa.
+                </p>
+            </div>
+            
+            <!-- Item 3: Estética -->
+            <div class="fade-in p-6 text-center md:text-left card-hover-effect rounded-lg">
+                <div class="text-4xl mb-4 text-sz-green"><i data-feather="image" class="w-12 h-12 inline-block"></i></div>
+                <h3 class="text-2xl font-bold text-sz-green">Estética alinhada à sua marca</h3>
+                <p class="text-base font-light leading-relaxed mt-3">
+                    Fotos, vídeos e textos criados para gerar identificação, não só engajamento.
+                </p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 04. Nosso Método (REMOVIDO) -->
     
-    <main>
-        <section id="solucoes" class="py-24 md:py-32 bg-white">
-            <div class="max-w-7xl mx-auto px-6 text-center">
-                <div class="fade-in-item">
-                    <h2 class="text-title mb-5">Soluções Pensadas para o Seu Sucesso</h2>
-                    <p class="text-gray-600 text-lg max-w-3xl mx-auto mb-20">Do conteúdo à conversão, oferecemos um ecossistema completo para o crescimento da sua marca.</p>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" data-stagger-children>
-                    <div id="producao-card" class="fade-in-item cursor-pointer group p-8 text-left">
-                        <div class="text-5xl mb-5">📸</div>
-                        <h3 class="text-headline mb-3">Produção de Conteúdo</h3>
-                        <p class="text-gray-600 mb-4">Fotos e Reels de alto impacto que capturam a atenção e fortalecem sua marca.</p>
-                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Saber mais →</span>
-                    </div>
-                    <a href="https://szmktdigital.github.io/automacaoig/" target="_blank" class="fade-in-item block group p-8 text-left">
-                        <div class="text-5xl mb-5">🤖</div>
-                        <h3 class="text-headline mb-3">Automação</h3>
-                        <p class="text-gray-600 mb-4">Otimize seu tempo com automações para captação e nutrição de leads.</p>
-                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Saber mais →</span>
-                    </a>
-                    <a href="https://szmktdigital.github.io/whatsapp/" target="_blank" class="fade-in-item block group p-8 text-left">
-                        <div class="text-5xl mb-5">📋</div>
-                        <h3 class="text-headline mb-3">Roteiros de Atendimento</h3>
-                        <p class="text-gray-600 mb-4">Padronize sua comunicação com roteiros que garantem um atendimento de excelência.</p>
-                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Saber mais →</span>
-                    </a>
-                    <a href="https://wa.me/5566999271791?text=Ol%C3%A1!%20Vi%20o%20site%20da%20SZ%20MKT%20Digital%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20cobertura%20de%20eventos." target="_blank" class="fade-in-item block group p-8 text-left">
-                        <div class="text-5xl mb-5">🎉</div>
-                        <h3 class="text-headline mb-3">Cobertura de Eventos</h3>
-                        <p class="text-gray-600 mb-4">Registre os melhores momentos e transforme-os em conteúdo estratégico.</p>
-                        <span class="font-semibold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">Falar sobre →</span>
-                    </a>
-                </div>
-            </div>
-        </section>
 
-        <section id="processo" class="py-24 md:py-32 bg-brand-neutral-light">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center fade-in-item mb-20">
-                    <h2 class="text-title mb-5">Nosso Processo</h2>
-                    <p class="text-gray-600 text-lg max-w-3xl mx-auto">Transparência e estratégia do início ao fim. Veja como transformamos desafios em resultados em 4 etapas claras.</p>
-                </div>
-                <div class="space-y-20">
-                    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center fade-in-item">
-                        <div class="p-8">
-                            <span class="text-7xl font-extrabold text-brand-accent">01</span>
-                            <h3 class="text-3xl font-bold my-4">Diagnóstico</h3>
-                            <p class="text-gray-600 text-lg">Mergulhamos no seu negócio para entender seus desafios, metas e o cenário atual da sua marca. É aqui que descobrimos as maiores oportunidades para o seu crescimento.</p>
-                        </div>
-                        <div class="h-80 bg-brand-accent rounded-lg flex items-center justify-center p-8 overflow-hidden relative">
-                            <div class="w-full h-full border-8 border-brand-secondary/20 rounded-full absolute -top-1/2 -left-1/2"></div>
-                             <div class="w-full h-full border-8 border-brand-secondary/20 rounded-full absolute -bottom-1/2 -right-1/2"></div>
-                        </div>
-                    </div>
-                     <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center fade-in-item">
-                        <div class="h-80 bg-brand-accent rounded-lg md:order-last flex items-center justify-center p-8 overflow-hidden relative">
-                           <div class="w-40 h-4 bg-brand-primary/20 -rotate-45 rounded-lg absolute"></div>
-                           <div class="w-40 h-4 bg-brand-primary/20 rotate-45 rounded-lg absolute"></div>
-                        </div>
-                        <div class="p-8">
-                            <span class="text-7xl font-extrabold text-brand-accent">02</span>
-                            <h3 class="text-3xl font-bold my-4">Estratégia</h3>
-                            <p class="text-gray-600 text-lg">Criamos um plano de ação personalizado, definindo os canais, conteúdos e automações ideais para atingir seus objetivos e conectar com seu público de forma autêntica.</p>
-                        </div>
-                    </div>
-                     <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center fade-in-item">
-                        <div class="p-8">
-                            <span class="text-7xl font-extrabold text-brand-accent">03</span>
-                            <h3 class="text-3xl font-bold my-4">Execução</h3>
-                            <p class="text-gray-600 text-lg">Com o plano em mãos, nossa equipe implementa as soluções com criatividade e precisão técnica, dando vida à estratégia e colocando sua marca em movimento no ambiente digital.</p>
-                        </div>
-                        <div class="h-80 bg-brand-accent rounded-lg flex items-center justify-center p-8 overflow-hidden relative">
-                            <div class="w-48 h-48 border-8 border-brand-secondary/20 rounded-full"></div>
-                        </div>
-                    </div>
-                </div>
+    <!-- 05. CTA Final -->
+    <section class="py-24 bg-sz-green text-sz-beige">
+        <div class="container mx-auto max-w-3xl px-4 text-center">
+            <h2 class="fade-in text-3xl sm:text-4xl font-light leading-tight">
+                Cada marca tem seu ritmo.<br>
+                <strong class="font-bold">A SZ ajuda você a encontrar o seu.</strong>
+            </h2>
+            <h3 class="fade-in text-2xl sm:text-3xl font-bold mt-10">
+                Vamos construir uma presença digital?
+            </h3>
+            <a href="https://wa.me/556692654359?text=Olá!%20Visitei%20o%20site%20da%20SZ%20MKT%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20assessoria." target="_blank" rel="noopener noreferrer" class="fade-in inline-block bg-sz-beige text-sz-green text-lg font-bold py-4 px-10 rounded-full mt-10 hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                Iniciar uma conversa
+            </a>
+        </div>
+    </section>
+    
+    <!-- 06. Rodapé -->
+    <footer id="contato" class="py-20 bg-sz-beige">
+        <div class="container mx-auto max-w-3xl px-4 text-center">
+            <div class="text-3xl font-bold font-montserrat tracking-wider text-sz-black">
+                SZ MKT DIGITAL
             </div>
-        </section>
-
-        <section id="depoimentos" class="py-24 md:py-32 bg-white">
-            <div class="max-w-5xl mx-auto px-6 text-center">
-                <div class="fade-in-item">
-                    <h2 class="text-title mb-5">Quem Confia, Recomenda</h2>
-                    <p class="text-gray-600 text-lg max-w-3xl mx-auto mb-20">Veja o que nossos clientes dizem sobre a parceria com a SZ MKT Digital.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-stagger-children>
-                    <div class="fade-in-item bg-brand-neutral-light p-8 rounded-lg text-left border border-gray-200/80">
-                         <span class="text-5xl text-brand-primary">“</span>
-                        <p class="text-gray-700 text-lg italic my-4">"A SZ transformou nosso engajamento. O processo de automação nos poupou horas de trabalho e os resultados foram imediatos."</p>
-                        <p class="font-bold text-brand-neutral-dark">- Ana Clara, Loja de Moda Infantil</p>
-                    </div>
-                    <div class="fade-in-item bg-brand-neutral-light p-8 rounded-lg text-left border border-gray-200/80">
-                         <span class="text-5xl text-brand-primary">“</span>
-                        <p class="text-gray-700 text-lg italic my-4">"O profissionalismo na cobertura do nosso evento foi incrível. O conteúdo gerado teve um alcance que não esperávamos. Recomendo!"</p>
-                        <p class="font-bold text-brand-neutral-dark">- Marcos Andrade, Produtor de Eventos</p>
-                    </div>
-                </div>
+            <p class="text-lg font-light mt-4">
+                Mais do que marketing, criamos conexão.
+            </p>
+            <div class="mt-8 space-y-2">
+                <a href="https://www.instagram.com/szmktdigital/" target="_blank" rel="noopener noreferrer" class="text-xl font-semibold text-sz-green hover:underline">
+                    @szmktdigital
+                </a>
+                <p class="text-base text-sz-black/60">
+                    szmkt.oficial@gmail.com
+                </p>
             </div>
-        </section>
-
-        <section id="cta" class="py-24 md:py-32 bg-brand-primary">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <div class="fade-in-item">
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Pronto para transformar sua presença online?</h2>
-                    <p class="text-brand-accent text-xl mb-10">Fale com a gente e descubra o plano ideal para sua marca.</p>
-                    <a href="https://wa.me/5566999271791?text=Ol%C3%A1!%20Vi%20o%20site%20da%20SZ%20MKT%20Digital%20e%20gostaria%20de%20saber%20mais%20sobre%20suas%20soluções." target="_blank" class="inline-block bg-white text-brand-primary font-bold py-4 px-10 rounded-full text-xl hover:bg-brand-accent transition hover:scale-105">
-                        FALAR COM UM ESPECIALISTA
-                    </a>
-                    <p class="mt-6 text-white/70">Agende uma conversa de 15 minutos, sem compromisso.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-brand-neutral-dark py-10">
-        <div class="max-w-7xl mx-auto px-6 text-center text-brand-accent flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; 2025 SZ MKT DIGITAL | Todos os direitos reservados.</p>
-            <button id="privacy-policy-button" class="mt-4 md:mt-0 text-sm hover:underline">Política de Privacidade & Cookies</button>
+            <!-- Você pode adicionar ícones de redes sociais aqui -->
         </div>
     </footer>
-    
-    <div id="modal-producao" class="fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full text-center">
-            <h3 class="text-headline mb-4">Produção de Conteúdo</h3>
-            <p class="text-gray-600 mb-6">Qual formato você gostaria de explorar?</p>
-            <div class="space-y-4">
-                 <a href="https://szmktdigital.github.io/fotografia/" target="_blank" class="block w-full bg-brand-primary text-white font-semibold py-3 px-6 rounded-md hover:bg-opacity-90 transition">Ver Fotografia</a>
-                 <a href="https://szmktdigital.github.io/reels/" target="_blank" class="block w-full bg-brand-secondary text-white font-semibold py-3 px-6 rounded-md hover:bg-opacity-90 transition">Ver Reels</a>
-            </div>
-            <button id="close-modal-button" class="mt-6 text-sm text-gray-500 hover:text-gray-700" aria-label="Fechar janela">Fechar</button>
-        </div>
-    </div>
-    
-    <div id="privacy-modal" class="fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full text-left max-h-[80vh] overflow-y-auto">
-            <h3 class="text-headline mb-6">Política de Privacidade e Cookies</h3>
-            <div class="space-y-4 text-gray-600">
-                <p>Nós da SZ MKT DIGITAL levamos sua privacidade a sério. Esta política descreve como coletamos, usamos e protegemos suas informações pessoais.</p>
-                <h4 class="font-bold text-brand-neutral-dark pt-4">Uso de Cookies</h4>
-                <p>Nosso site utiliza cookies essenciais para garantir o funcionamento correto da página. Não utilizamos cookies de rastreamento ou marketing de terceiros sem o seu consentimento explícito.</p>
-                <h4 class="font-bold text-brand-neutral-dark pt-4">Coleta de Dados</h4>
-                <p>Coletamos informações apenas quando você nos contata diretamente, como nome e número de telefone, com o único propósito de responder à sua solicitação. Não compartilhamos seus dados com terceiros.</p>
-                <h4 class="font-bold text-brand-neutral-dark pt-4">Seus Direitos (LGPD)</h4>
-                <p>Você tem o direito de solicitar o acesso, a correção ou a exclusão dos seus dados pessoais. Para fazer uma solicitação, por favor, envie um e-mail para:</p>
-                <a href="mailto:contato@szmktdigital.com.br?subject=Solicitação de Dados Pessoais" class="text-brand-primary font-bold hover:underline">contato@szmktdigital.com.br</a>
-            </div>
-            <button id="close-privacy-modal-button" class="mt-8 text-sm text-gray-500 hover:text-gray-700" aria-label="Fechar janela de privacidade">Fechar</button>
-        </div>
-    </div>
-    
-    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-brand-neutral-dark text-white p-6 shadow-lg z-50 transform translate-y-full transition-transform duration-300 ease-out">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-            <p class="text-brand-accent text-center md:text-left mb-4 md:mb-0">Este site utiliza cookies essenciais para garantir uma melhor experiência. Ao continuar, você concorda com nosso uso.</p>
-            <div class="flex space-x-4">
-                <button id="accept-cookies" class="bg-brand-primary text-white py-2 px-5 rounded-full font-semibold hover:bg-opacity-90 transition text-label">Aceitar</button>
-                <button id="decline-cookies" class="bg-white/20 text-white py-2 px-5 rounded-full font-semibold hover:bg-white/30 transition text-label">Recusar</button>
-            </div>
-        </div>
-    </div>
 
-
+    <!-- Script para Animação de Scroll -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const setupMenu = () => {
-                const btn = document.getElementById('mobile-menu-button');
-                const menu = document.getElementById('mobile-menu');
-                const links = menu.querySelectorAll('a');
-                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-                links.forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
-            };
+            const fadeInElements = document.querySelectorAll('.fade-in');
 
-            const setupNavbar = () => {
-                const nav = document.getElementById('navbar');
-                window.addEventListener('scroll', () => {
-                    nav.classList.toggle('shadow-md', window.scrollY > 50);
-                });
-            };
+            if (!('IntersectionObserver' in window)) {
+                // Se o navegador for muito antigo, apenas mostra os elementos
+                fadeInElements.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
 
-            const setupAnimations = () => {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            if (entry.target.hasAttribute('data-stagger-children')) {
-                                const children = entry.target.querySelectorAll('.fade-in-item');
-                                children.forEach((child, index) => {
-                                    setTimeout(() => child.classList.add('is-visible'), index * 150);
-                                });
-                            } else {
-                                entry.target.classList.add('is-visible');
-                            }
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                document.querySelectorAll('.fade-in-item, [data-stagger-children]').forEach(el => {
-                    if (!el.closest('[data-stagger-children]') || el.hasAttribute('data-stagger-children')) {
-                        observer.observe(el);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Para a animação não repetir
                     }
                 });
-            };
+            }, {
+                threshold: 0.1 // 10% do elemento visível
+            });
 
-            const setupModal = (cardId, modalId, closeBtnId) => {
-                const card = document.getElementById(cardId);
-                const modal = document.getElementById(modalId);
-                const closeBtn = document.getElementById(closeBtnId);
-                if(card && modal && closeBtn) {
-                    card.addEventListener('click', () => modal.classList.remove('hidden'));
-                    closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
-                    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.add('hidden'); });
-                }
-            };
+            fadeInElements.forEach(el => {
+                observer.observe(el);
+            });
             
-            const setupCookieBanner = () => {
-                const banner = document.getElementById('cookie-banner');
-                const acceptBtn = document.getElementById('accept-cookies');
-                const declineBtn = document.getElementById('decline-cookies');
-                
-                if (localStorage.getItem('cookieConsent')) {
-                    return;
-                }
-
-                setTimeout(() => {
-                    banner.classList.remove('translate-y-full');
-                }, 1000);
-
-                const hideBanner = () => {
-                    banner.classList.add('translate-y-full');
-                };
-                
-                acceptBtn.addEventListener('click', () => {
-                    localStorage.setItem('cookieConsent', 'true');
-                    hideBanner();
-                });
-                declineBtn.addEventListener('click', () => {
-                    localStorage.setItem('cookieConsent', 'false');
-                    hideBanner();
-                });
-            };
-
-            setupMenu();
-            setupNavbar();
-            setupAnimations();
-            setupModal('producao-card', 'modal-producao', 'close-modal-button');
-            setupModal('privacy-policy-button', 'privacy-modal', 'close-privacy-modal-button');
-            setupCookieBanner();
+            // Inicializa o Feather Icons
+            feather.replace();
         });
     </script>
 </body>
